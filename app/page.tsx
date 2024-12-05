@@ -154,7 +154,7 @@ const Home = () => {
       </div>
       {/* 코멘트 섹션 */}
       {!isReviewMode && (
-        <div className="flex flex-col pb-[120px] gap-[20px] max-h-[440px] overflow-y-scroll px-[20px]">
+        <div className="flex flex-col pb-[260px] gap-[20px] max-h-[440px] overflow-y-scroll px-[20px]">
           {reviews.map((review, idx) => (
             <Comment
               key={`${review.id}_${idx}`}
