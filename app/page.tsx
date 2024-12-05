@@ -115,8 +115,8 @@ const Home = () => {
       {/* 이미지 섹션 */}
       <div className="relative w-full h-[260px] overflow-hidden">
         <Image
-          src="https://picsum.photos/seed/picsum/1920/1080"
-          alt="full width image"
+          src="/img_cover.jpeg"
+          alt="cover image"
           fill
           className="object-cover" // 필요에 따라 object-fit 스타일 추가
         />
@@ -154,7 +154,7 @@ const Home = () => {
       </div>
       {/* 코멘트 섹션 */}
       {!isReviewMode && (
-        <div className="flex flex-col pb-[64px] gap-[20px] max-h-[440px] overflow-y-scroll px-[20px]">
+        <div className="flex flex-col pb-[120px] gap-[20px] max-h-[440px] overflow-y-scroll px-[20px]">
           {reviews.map((review, idx) => (
             <Comment
               key={`${review.id}_${idx}`}
@@ -167,7 +167,7 @@ const Home = () => {
       {/* 제출버튼 */}
       <button
         onClick={isReviewMode ? onAddReview : changeInsert}
-        className="w-[345px] h-[40px] bg-[#FF7B0A] text-white fixed bottom-[4px] left-1/2 -translate-x-1/2 hover:bg-[#E66A00] rounded-[8px]"
+        className="w-[345px] h-[40px] bg-[#FF7B0A] text-white fixed bottom-[8px] left-1/2 -translate-x-1/2 hover:bg-[#E66A00] rounded-[8px]"
       >
         {isReviewMode ? '제출하기' : '평가하기'}
       </button>
