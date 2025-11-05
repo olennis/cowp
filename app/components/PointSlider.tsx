@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
 import * as SliderPrimitive from '@radix-ui/react-slider';
+import { useState, useRef, useEffect } from 'react';
 
 const PointSlider = ({
   onChange
@@ -13,14 +13,18 @@ const PointSlider = ({
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const delta = Math.sign(e.deltaY);
+
       setValue((prevValue) => {
         const newValue = Math.min(Math.max(prevValue - delta, 0), 9);
+
         onChange?.(newValue);
+
         return newValue;
       });
     };
 
     const slider = sliderRef.current;
+
     if (slider) {
       slider.addEventListener('wheel', handleWheel, { passive: false });
     }

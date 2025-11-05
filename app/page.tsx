@@ -1,12 +1,16 @@
 'use client';
 
-import { addReview, getReviews } from '@/apis/review';
 import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
 import { FaAddressBook } from 'react-icons/fa';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import Rating from './components/Rating';
+
+import { addReview, getReviews } from '@/apis/review';
+
+import type { ChangeEvent } from 'react';
+
 import Comment from './components/Comment';
 import PointSlider from './components/PointSlider';
+import Rating from './components/Rating';
 
 interface Review {
   id: number;
@@ -90,6 +94,7 @@ const Home = () => {
     const randomAdjective =
       adjectives[Math.floor(Math.random() * adjectives.length)];
     const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+
     return `${randomAdjective} ${randomNoun}`;
   };
 
@@ -111,7 +116,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full mx-auto max-w-[768px]">
+    <div className="w-full mx-auto max-w-[375px]">
       {/* 이미지 섹션 */}
       <div className="relative w-full h-[260px] overflow-hidden">
         <Image
@@ -141,7 +146,7 @@ const Home = () => {
             <div className="relative">
               <textarea
                 value={comment}
-                placeholder="평가해 주신 점수보다 1점을 더 받으려면 어떤 것을 개선해야 할까요? (작성하지 않으셔도 좋아요!)"
+                placeholder="내년에 올해보다 1점 더 받으려면 무엇을 개선해야 할까요? (작성 안 해도 돼요)"
                 className="w-[360px]  h-[144px] text-[14px] text-[#9D9DAE] px-[12px] py-[8px] rounded-[8px] border border-[#E0E0E0] resize-none bg-[#fafafa]"
                 onChange={handleTextArea}
               />
@@ -154,12 +159,13 @@ const Home = () => {
       </div>
       {/* 코멘트 섹션 */}
       {!isReviewMode && (
-        <div className="flex flex-col pb-[260px] gap-[20px] max-h-[440px] overflow-y-scroll px-[20px]">
+        <div className="flex flex-col gap-[20px] h-[250px] overflow-scroll px-[10px]">
           {reviews.map((review, idx) => (
             <Comment
               key={`${review.id}_${idx}`}
               name={review.name}
               review={review.comment}
+              date={review.created_at}
             />
           ))}
         </div>
