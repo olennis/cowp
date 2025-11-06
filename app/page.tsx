@@ -22,7 +22,6 @@ interface Review {
 
 const Home = () => {
   const [isReviewMode, setIsReviewMode] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [averagePoint, setAveragePoint] = useState(0);
 
   const [rating, setRating] = useState(0);
@@ -74,19 +73,18 @@ const Home = () => {
 
   const onGetReviews = async () => {
     try {
-      setIsLoading(true);
       const fetchReviews = await getReviews();
       const total = fetchReviews?.length || 0;
       const sum = fetchReviews?.reduce((acc, cur) => acc + cur.rating, 0) || 0;
       const average = sum / total;
 
-      fetchReviews && setReviews(fetchReviews);
+      if (fetchReviews) {
+        setReviews(fetchReviews);
+      }
+
       setAveragePoint(parseFloat(average.toFixed(2)));
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -118,12 +116,12 @@ const Home = () => {
   return (
     <div className="w-full mx-auto max-w-[375px]">
       {/* 이미지 섹션 */}
-      <div className="relative w-full h-[260px] overflow-hidden">
+      <div className="relative w-full h-[260px] overflow-hidden bg-[#160F00]">
         <Image
-          src="/img_cover.jpeg"
+          src="/img_cover.png"
           alt="cover image"
           fill
-          className="object-cover" // 필요에 따라 object-fit 스타일 추가
+          className="object-contain" // 필요에 따라 object-fit 스타일 추가
         />
         <div className="flex items-center justify-between absolute bottom-0 left-0 w-full h-[60px] bg-gradient-to-t from-black opacity-80 px-8">
           <div className="text-white">
@@ -159,7 +157,7 @@ const Home = () => {
       </div>
       {/* 코멘트 섹션 */}
       {!isReviewMode && (
-        <div className="flex flex-col gap-[20px] h-[250px] overflow-scroll px-[10px]">
+        <div className="flex flex-col gap-[20px] h-[170px] overflow-scroll px-[10px]">
           {reviews.map((review, idx) => (
             <Comment
               key={`${review.id}_${idx}`}

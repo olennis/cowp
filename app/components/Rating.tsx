@@ -1,7 +1,8 @@
-import StarSVG from '../../public/Star.svg';
-import HalfStarSVG from '../../public/Half-Star.svg';
-import EmptyStarSVG from '../../public/Empty-Star.svg';
 import Image from 'next/image';
+
+import EmptyStarSVG from '../../public/Empty-Star.svg';
+import HalfStarSVG from '../../public/Half-Star.svg';
+import StarSVG from '../../public/Star.svg';
 
 interface RatingProps {
   point: number; // 0 to 10

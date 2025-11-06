@@ -12,17 +12,6 @@ interface CommentProps {
 const Comment = ({ review, name, date }: CommentProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const getRandomHexColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-
-    return color;
-  };
-
   const formatDate = (date: string): string => {
     const convertDate = new Date(date);
     const year = convertDate.getFullYear();
