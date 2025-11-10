@@ -28,6 +28,8 @@ const Home = () => {
   const [comment, setComment] = useState('');
   const [reviews, setReviews] = useState<Review[]>([]);
 
+  const [windowWidth, setWindowWidth] = useState(375);
+
   const adjectives = useMemo(
     () => [
       '빠른',
@@ -109,8 +111,28 @@ const Home = () => {
     }
   };
 
+  const getReviewHeight = () => {
+    if (windowWidth < 376) return '170px';
+    if (windowWidth < 1024) return '250px';
+
+    return '400px';
+  };
+
   useEffect(() => {
     onGetReviews();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // 초기값 설정
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -157,7 +179,10 @@ const Home = () => {
       </div>
       {/* 코멘트 섹션 */}
       {!isReviewMode && (
-        <div className="flex flex-col gap-[20px] h-[170px] overflow-scroll px-[10px]">
+        <div
+          className="flex flex-col gap-[20px] overflow-scroll px-[10px]"
+          style={{ height: getReviewHeight() }}
+        >
           {reviews.map((review, idx) => (
             <Comment
               key={`${review.id}_${idx}`}
