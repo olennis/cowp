@@ -7,7 +7,7 @@ export const getReviews = async () => {
   const { data } = await supabase
     .from('review')
     .select('*')
-    .order('id', { ascending: false });
+    .order('created_at', { ascending: false });
 
   return data;
 };
